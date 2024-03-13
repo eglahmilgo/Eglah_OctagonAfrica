@@ -12,17 +12,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use App\Http\Controllers\AuthManager;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+Route::get('/login', [AuthManager::class, 'login'])->name('login');
+Route::post('/login', [AuthManager::class, 'loginpost'])->name('login.post');
+Route::get('/registration', [AuthManager::class, 'registration'])->name('registration');
+Route::post('/registration', [AuthManager::class, 'registrationpost'])->name('registration.post');
+Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
+
+
