@@ -2,26 +2,49 @@
 @section('title', 'Login')
 @section('content')
 
-<div> class="container">
-<form action="{{route('login.post')}}" method="POST" class="ms-auto me-auto" style="width: 500px">
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  </div>
-       
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="useFingerprint" name="useFingerprint">
-            <label class="form-check-label" for="useFingerprint">Use Fingerprint</label>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="{{ route('login.post') }}" method="POST" id="loginForm">
+                @csrf
+
+                <div class="mb-3">
+                    <label for="InputName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="InputName" name="name">
+                </div>
+
+                <div class="mb-3">
+                    <label for="InputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="InputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="passwordInput" name="password">
+                </div>
+                or
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="useFingerprint" name="useFingerprint">
+                    <label class="form-check-label" for="useFingerprint">Use Fingerprint</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
         </div>
-  
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const useFingerprintCheckbox = document.getElementById('useFingerprint');
+        const passwordInput = document.getElementById('passwordInput');
+
+        useFingerprintCheckbox.addEventListener('change', function () {
+            if (this.checked) {
+                passwordInput.type = 'hidden', 'show password';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
+    });
+</script>
 
 @endsection
