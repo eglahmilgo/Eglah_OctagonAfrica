@@ -16,7 +16,7 @@ class AuthManager extends Controller
         }
         return view('login');
     }
-    
+
     public function registration()
     {
         if (Auth::check()) {
@@ -24,15 +24,19 @@ class AuthManager extends Controller
         }
         return view('registration');
     }
-    
+
     public function loginPost(Request $request)
     {
         $request->validate([
+            'name' => 'required',
+
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'useFingerprint' => 'nullable|boolean'
+
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('name', 'email', 'password');
         if (Auth::attempt($credentials)) {
             // Authentication passed
             return redirect()->intended(route('home'));
@@ -46,9 +50,11 @@ class AuthManager extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
+            'password' => 'required|min:4',
+            'useFingerprint' => 'nullable|boolean',
+
         ]);
-        
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -56,7 +62,14 @@ class AuthManager extends Controller
         ]);
 
         if ($user) {
-            return redirect(route('login'))->with("success", "Registration successful. You can now log in.");
+            if ($request->filled('useFingerprint')) {
+                $userData['use_fingerprint'] = true; 
+            }
+            // Set success message in session
+            $request->session()->flash('success', 'Registration successful. You can now log in.');
+
+            
+            return redirect(route('login'));
         }
 
         return redirect(route('registration'))->with("error", "Registration failed. Please try again.");

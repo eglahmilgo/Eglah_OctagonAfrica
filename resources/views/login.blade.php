@@ -21,7 +21,7 @@
                     <label for="InputPassword1" class="form-label">Password</label>
                     <input type="password" class="form-control" id="passwordInput" name="password">
                 </div>
-                or
+                
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="useFingerprint" name="useFingerprint">
                     <label class="form-check-label" for="useFingerprint">Use Fingerprint</label>

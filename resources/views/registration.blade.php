@@ -6,9 +6,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form action="{{ route('registration.post') }}" method="POST" id="registrationForm">
+            <form action="{{ route('registration.post') }}" method="POST" id="Form">
                 @csrf
-                
 
                 <div class="mb-3">
                     <label for="InputName" class="form-label">Name</label>
@@ -28,7 +27,7 @@
                     <input type="checkbox" class="form-check-input" id="useFingerprint" name="useFingerprint">
                     <label class="form-check-label" for="useFingerprint">Use Fingerprint</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Create Account</button>
+                <button type="submit" class="btn btn-primary">Register</button>
             </form>
         </div>
     </div>
